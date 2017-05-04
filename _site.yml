@@ -18,7 +18,7 @@ navbar:
       href: code-handout.R
   right:
     - icon: fa-github fa-lg
-      href: https://github.com/datacarpentry/R-ecology-lesson
+      href: https://github.com/economics-datacarpentry/R-economics-lesson
 output_dir: "."
 exclude: ["CONTRIBUT*.md","index.md","README.md","*.db"]
 include: ["*.Rmd","LICENSE.md"]
