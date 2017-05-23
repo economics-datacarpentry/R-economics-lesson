@@ -26,73 +26,38 @@ source("setup.R")
 ### Presentation of the survey data
 ```
 
-We are studying the labor force
+We are studying the labor force in the United States from 1941 to 2010 (raw data from BLS.gov -- https://www.bls.gov/cps/aa2010/aat1.txt). The dataset is stored as a comma separated value (CSV) file. Each row holds labor force information for a single year, and the column represent:
 
-We are studying the species and weight of animals caught in plots in our study
-area. The dataset is stored as a comma separated value (CSV) file.
-Each row holds information for a single animal, and the columns represent:
+| Column             | Description                                                 |
+|--------------------|-------------------------------------------------------------|
+| year               | year of observation                                         |
+| civ\_noninst\_pop  | civilian noninstitutional population                        |
+| civ\_lf\_tot       | total civilian labor force                                  |
+| pct\_pop           | percent of population                                       |
+| emp\_tot           | total employed                                              |
+| emp\_pct\_pop      | percent of employed population                              |
+| emp\_ag\_tot       | population employed in agriculture                          |
+| emp\_nonag\_tot    | population employed in non-agriculture                      |
+| unemp              | unemployment                                                |
+| unemp\_pct\_lf     | percent of unemployed in labor force                        |
+| not\_in\_lf        | not in labor force                                          |
+| footnotes          | citation of data source                                     |
 
-| Column           | Description                        |
-|------------------|------------------------------------|
-| record\_id       | Unique id for the observation      |
-| month            | month of observation               |
-| day              | day of observation                 |
-| year             | year of observation                |
-| plot\_id         | ID of a particular plot            |
-| species\_id      | 2-letter code                      |
-| sex              | sex of animal ("M", "F")           |
-| hindfoot\_length | length of the hindfoot in mm       |
-| weight           | weight of the animal in grams      |
-| genus            | genus of animal                    |
-| species          | species of animal                  |
-| taxa             | e.g. Rodent, Reptile, Bird, Rabbit |
-| plot\_type       | type of plot                       |
+We are going to use the R function `read_csv()` from the `readr` package to read the CSV file that contains the labor force data to load into memory the content of the CSV file as an object of class `data.frame`.
 
-We are going to use the R function `download.file()` to download the CSV file
-that contains the survey data from figshare, and we will use `read.csv()` to
-load into memory the content of the CSV file as an object of class `data.frame`.
-
-To download the data into the `data/` subdirectory, run the following:
-
-```{r, eval=FALSE, purl=TRUE}
-download.file("https://ndownloader.figshare.com/files/2292169",
-              "data/portal_data_joined.csv")
-```
-
-You are now ready to load the data:
+Load the data from the `\data` subdirectory:
 
 ```{r, eval=TRUE,  purl=FALSE}
-surveys <- read.csv('data/portal_data_joined.csv')
+library(readr)
+unemp <- read.csv('data/aat1.csv')
 ```
 
-This statement doesn't produce any output because, as you might recall,
-assignments don't display anything. If we want to check that our data has been
-loaded, we can print the variable's value: `surveys`.
+This statement doesn't produce any output because, as you might recall, assignments don't display anything. If we want to check that our data has been loaded, we can print the variable's value: `unemp`.
 
-Wow... that was a lot of output. At least it means the data loaded
-properly. Let's check the top (the first 6 lines) of this data frame using the
-function `head()`:
+Wow... that was a lot of output. At least it means the data loaded properly. Let's check the top (the first 6 lines) of this data frame using the function `head()`:
 
 ```{r, results='show', purl=FALSE}
-head(surveys)
-```
-
-
-##### Reading / Writing
-
-To download the data into the `data/` subdirectory, run the following:
-
-```{r, eval=FALSE, purl=TRUE}
-download.file("https://raw.githubusercontent.com/datasets/us-employment-bls/master/data/aat1.csv",
-              "data/aat1.csv")
-```
-
-R has built-in functions to read and write delimited files: `read.csv()`, `read.table()`, `read.delim()`. However, there are better versions of these available in the package `readr`: `read_csv()`, `read_table()`, `read_delim()`. 
-We can read local files from our computers or remotely from URLs. Let's read a csv of unemployment data from github.
-
-```{r}
-library(readr)
-unemp <- read_csv("data/aat1.csv")
+head(unemp)
 ```
 
 `readr` gives us feedback about how it parsed the csv. For example, it recognized that the `Year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
@@ -242,7 +207,7 @@ objects besides `data.frame`.
 ```
 
 
-Our survey data frame has rows and columns (it has 2 dimensions), if we want to
+Our unemp data frame has rows and columns (2 dimensions). If we want to
 extract some specific data from it, we need to specify the "coordinates" we
 want from it. Row numbers come first, followed by column numbers. However, note
 that different ways of specifying these coordinates lead to results with
@@ -272,10 +237,10 @@ As well as using numeric values to subset a `data.frame` (or `matrix`), columns
 can be called by name, using one of the four following notations:
 
 ```{r, eval = FALSE, purl=FALSE}
-unemp["species_id"]       # Result is a data.frame
-unemp[, "species_id"]     # Result is a vector
-unemp[["species_id"]]     # Result is a vector
-unemp$species_id          # Result is a vector
+unemp["pct_pop"]       # Result is a data.frame
+unemp[, "pct_pop"]     # Result is a vector
+unemp[["pct_pop"]]     # Result is a vector
+unemp$pct_pop          # Result is a vector
 ```
 
 For our purposes, the last three notations are equivalent. RStudio knows about
@@ -284,8 +249,8 @@ feature to get the full and correct column name.
 
 > ### Challenge
 >
-> 1. Create a `data.frame` (`surveys_200`) containing only the observations from
->    row 200 of the `surveys` dataset.
+> 1. Create a `data.frame` (`unemp_20`) containing only the observations from
+>    row 20 of the `unemp` dataset.
 >
 > 2. Notice how `nrow()` gave you the number of rows in a `data.frame`?
 >
@@ -293,21 +258,21 @@ feature to get the full and correct column name.
 >      * Compare that with what you see as the last row using `tail()` to make
 >        sure it's meeting expectations.
 >      * Pull out that last row using `nrow()` instead of the row number.
->      * Create a new data frame object (`surveys_last`) from that last row.
+>      * Create a new data frame object (`unemp_last`) from that last row.
 >
 > 3. Use `nrow()` to extract the row that is in the middle of the data
->    frame. Store the content of this row in an object named `surveys_middle`.
+>    frame. Store the content of this row in an object named `unemp_middle`.
 >
 > 4. Combine `nrow()` with the `-` notation above to reproduce the behavior of
->    `head(surveys)` keeping just the first through 6th rows of the surveys
+>    `head(unemp)` keeping just the first through 6th rows of the unemp
 >    dataset.
 
 
 ```{r, echo=FALSE, purl=TRUE}
 ### Challenges:
 ###
-### 1. Create a `data.frame` (`surveys_200`) containing only the
-###    observations from row 200 of the `surveys` dataset.
+### 1. Create a `data.frame` (`unemp_20`) containing only the
+###    observations from row 20 of the `unemp` dataset.
 ###
 ### 2. Notice how `nrow()` gave you the number of rows in a `data.frame`?
 ###
@@ -315,14 +280,14 @@ feature to get the full and correct column name.
 ###      * Compare that with what you see as the last row using `tail()` to make
 ###        sure it's meeting expectations.
 ###      * Pull out that last row using `nrow()` instead of the row number
-###      * Create a new data frame object (`surveys_last`) from that last row
+###      * Create a new data frame object (`unemp_last`) from that last row
 ###
 ### 3. Use `nrow()` to extract the row that is in the middle of the
 ###    data frame. Store the content of this row in an object named
-###    `surveys_middle`.
+###    `unemp_middle`.
 ###
 ### 4. Combine `nrow()` with the `-` notation above to reproduce the behavior of
-###    `head(surveys)` keeping just the first through 6th rows of the surveys
+###    `head(unemp)` keeping just the first through 6th rows of the unemp
 ###    dataset.
 
 ```
@@ -330,10 +295,10 @@ feature to get the full and correct column name.
 <!---
 ```{r, purl=FALSE}
 ## Answers
-surveys_200 <- surveys[200, ]
-surveys_last <- surveys[nrow(surveys), ]
-surveys_middle <- surveys[nrow(surveys)/2, ]
-surveys_head <- surveys[-c(7:nrow(surveys)),]
+unemp_20 <- unemp[20, ]
+unemp_last <- unemp[nrow(unemp), ]
+unemp_middle <- unemp[nrow(unemp)/2, ]
+unemp_head <- unemp[-c(7:nrow(unemp)),]
 ```
 --->
 
