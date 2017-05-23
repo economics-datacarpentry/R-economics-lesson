@@ -1,6 +1,6 @@
 ---
 layout: lesson
-title: Data carpentry: R for data analysis and visualization of Ecological Data
+title: Data carpentry: R for data analysis and visualization of Economicis Data
 keywords: ["R", "subset", "data.frame", "read.csv", "dplyr", "ggplot2"]
 ---
 
