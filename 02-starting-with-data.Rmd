@@ -80,6 +80,13 @@ head(surveys)
 
 ##### Reading / Writing
 
+To download the data into the `data/` subdirectory, run the following:
+
+```{r, eval=FALSE, purl=TRUE}
+download.file("https://raw.githubusercontent.com/datasets/us-employment-bls/master/data/aat1.csv",
+              "data/aat1.csv")
+```
+
 R has built-in functions to read and write delimited files: `read.csv()`, `read.table()`, `read.delim()`. However, there are better versions of these available in the package `readr`: `read_csv()`, `read_table()`, `read_delim()`. 
 We can read local files from our computers or remotely from URLs. Let's read a csv of unemployment data from github.
 
