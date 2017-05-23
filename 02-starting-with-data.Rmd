@@ -85,7 +85,7 @@ We can read local files from our computers or remotely from URLs. Let's read a c
 
 ```{r}
 library(readr)
-unemp<-read_csv("https://raw.githubusercontent.com/datasets/us-employment-bls/master/data/aat1.csv")
+unemp <- read_csv("data/aat1.csv")
 ```
 
 `readr` gives us feedback about how it parsed the csv. For example, it recognized that the `Year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
