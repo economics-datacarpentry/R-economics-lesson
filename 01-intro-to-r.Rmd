@@ -322,7 +322,7 @@ factors (`factor`) and arrays (`array`).
 > ### Challenge
 >
 >
-> * We’ve seen that atomic vectors can be of type character,
+> * We've seen that atomic vectors can be of type character,
 >   numeric, integer, and logical. But what happens if we try to mix these types in
 >   a single vector?
 > <!-- * _Answer_: R implicitly converts them to all be the same type -->
@@ -351,7 +351,7 @@ factors (`factor`) and arrays (`array`).
 > <!-- * _Answer_: `logical -> numeric -> character <-- logical` -->
 
 ```{r, echo=FALSE, eval=FALSE, purl=TRUE}
-## We’ve seen that atomic vectors can be of type character, numeric, integer, and
+## We've seen that atomic vectors can be of type character, numeric, integer, and
 ## logical. But what happens if we try to mix these types in a single
 ## vector?
 
@@ -522,6 +522,17 @@ heights[complete.cases(heights)]
 ## 2. Use the function `median()` to calculate the median of the `lengths` vector.
 ```
 
+## Introduction to the `tidyverse`
+
+The `R` language was based on the The New S Language (1988 Blue Book).  The language itself includes a `package` mechanism for adding extended functionality.  Many of the "base" `R` language functions can be difficult to use.  The `tidyverse` package is a set of packages that work in harmony because they share common data representations and API design. The `tidyverse` package is designed to make it easy to install and load core packages from the `tidyverse` in a single command.
+
+## Analysis Workflow 
+
+![](img/data-science.png) 
+
+(Image source: [R for Data Science](http://r4ds.had.co.nz/))
+
+The `tidyverse` package is built around this framework.  As we'll see in the following sections, each step has its own set of tools.
+
 Now that we have learned how to write scripts, and the basics of R's data
-structures, we are ready to start working with the Portal dataset we have been
-using in the other lessons, and learn about data frames.
+structures, the next step is to learn about data frames.
