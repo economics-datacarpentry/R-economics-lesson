@@ -1,6 +1,11 @@
 ## file structure
 if (! file.exists("data")) dir.create("data")
 
+if (!file.exists("data/aat1.csv")) {
+  download.file("https://raw.githubusercontent.com/datasets/us-employment-bls/master/data/aat1.csv",
+                "data/aat1.csv")
+}
+
 if (!file.exists("data/surveys.csv")) {
     download.file("https://ndownloader.figshare.com/files/2292172",
                   "data/surveys.csv")
