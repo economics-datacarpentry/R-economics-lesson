@@ -164,7 +164,7 @@ factors). We can see this when inspecting the <b>str</b>ucture of a data frame
 with the function `str()`:
 
 ```{r, purl=FALSE}
-str(surveys)
+str(unemp)
 ```
 
 ## Inspecting `data.frame` Objects
