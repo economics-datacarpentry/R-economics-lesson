@@ -20,10 +20,10 @@ source("setup.R")
 
 ------------
 
-## Presentation of the Survey Data
+## Presentation of the Labor Force Data
 
 ```{r, echo=FALSE, purl=TRUE}
-### Presentation of the survey data
+### Presentation of the labor force data
 ```
 
 We are studying the labor force in the United States from 1941 to 2010 (raw data originally from BLS.gov -- https://www.bls.gov/cps/aa2010/aat1.txt). The dataset is stored as a comma separated value (CSV) file. Each row holds labor force information for a single year, and the column represent:
@@ -59,7 +59,7 @@ Load the data from the `\data` subdirectory:
 
 ```{r, eval=TRUE,  purl=FALSE}
 library(readr)
-unemp <- read.csv('data/aat1.csv')
+unemp <- read_csv('data/aat1.csv')
 ```
 
 This statement doesn't produce any output because, as you might recall, assignments don't display anything. If we want to check that our data has been loaded, we can print the variable's value: `unemp`.
@@ -70,31 +70,31 @@ Wow... that was a lot of output. At least it means the data loaded properly. Let
 head(unemp)
 ```
 
-`readr` gives us feedback about how it parsed the csv. For example, it recognized that the `Year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
+`readr` gives us feedback about how it parsed the csv. For example, it recognized that the `year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
 
 The variable names in the csv, though very descriptive, are not friendly to type. So we might like to rename the variables then save the data and a codebook to disk for later use.
 
 ```{r}
 # new names for the columns
-short_names<-c('year',
-               'civ_noninst_pop',
-               'civ_lf_tot',
-               'pct_pop',
-               'emp_tot',
-               'emp_pct_pop',
-               'emp_ag_tot',
-               'emp_nonag_tot',
-               'unemp',
-               'unemp_pct_lf',
-               'not_in_lf',
-               'footnotes',
-               'president',
-               'party')
+short_names <- c('year',
+                 'civ_noninst_pop',
+                 'civ_lf_tot',
+                 'pct_pop',
+                 'emp_tot',
+                 'emp_pct_pop',
+                 'emp_ag_tot',
+                 'emp_nonag_tot',
+                 'unemp',
+                 'unemp_pct_lf',
+                 'not_in_lf',
+                 'footnotes',
+                 'president',
+                 'party')
                
 # create a codebook with the new names, old names, and the type of each column
-codebook <- data.frame(name=short_names,
-                       descripition=names(unemp),
-                       type=as.character(lapply(unemp,typeof)))
+codebook <- data.frame(name = short_names,
+                       descripition = names(unemp),
+                       type = as.character(lapply(unemp,typeof)))
                      
 # now rename the variables
 names(unemp) <- short_names
