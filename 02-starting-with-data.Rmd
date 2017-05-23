@@ -26,6 +26,82 @@ source("setup.R")
 ### Presentation of the survey data
 ```
 
+
+##### Reading / Writing
+
+R has built-in functions to read and write delimited files: `read.csv()`, `read.table()`, `read.delim()`. However, there are better versions of these available in the package `readr`: `read_csv()`, `read_table()`, `read_delim()`. 
+We can read local files from our computers or remotely from URLs. Let's read a csv of unemployment data from github.
+
+```{r}
+library(readr)
+unemp<-read_csv("https://raw.githubusercontent.com/datasets/us-employment-bls/master/data/aat1.csv")
+```
+
+`readr` gives us feedback about how it parsed the csv. For example, it recognized that the `Year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
+
+The variable names in the csv, though very descriptive, are not friendly to type. So we might like to rename the variables then save the data and a codebook to disk for later use.
+
+```{r}
+# new names for the columns
+short_names<-c('year',
+               'civ_noninst_pop',
+               'civ_lf_tot',
+               'pct_pop',
+               'emp_tot',
+               'emp_pct_pop',
+               'emp_ag_tot',
+               'emp_nonag_tot',
+               'unemp',
+               'unemp_pct_lf',
+               'not_in_lf',
+               'footnotes')
+               
+# create a codebook with the new names, old names, and the type of each column
+codebook<-data.frame(name=short_names,
+                     descripition=names(unemp),
+                     type=as.character(lapply(unemp,typeof)))
+                     
+# now rename the variables
+names(unemp)<-short_names
+
+# write both the codebook and rename data to disk as tab-delimited files
+write_tsv(codebook,"data/unemp_codebook.tsv")
+write_tsv(unemp,"data/unemp.tsv")
+```
+
+Now that it is saved, let's keep working with the data and see what we else can do. The `dplyr` package is an excellent way to manipulate data frame and summarize data.
+
+##### Exploring with dplyr and ggplot2
+
+```{r}
+library(dplyr)
+unemp %>% summarise(first=min(year),last=max(year))
+```
+
+The dplyr `%>%` notation means, take the output of the thing on the left and pass it to the thing on the right. It is a fancy way of doing function composition. Instead of writing `f(g(h(x)))` we can write `x %>% h() %>% g() %>% f()`. Writing it this way makes it easier to remove `g()` if we don't want it to be part of the pipeline of operations anymore.
+
+We can also plot the unemployment rate easily with the `ggplot2` package. I give you the following code without much explanation, but it will be covered in a later lesson.
+
+```{r, fig.align="center"}
+library(ggplot2)
+unemp %>% 
+  ggplot(aes(year,unemp_pct_lf)) + 
+  geom_line() + labs(y="Unemployment Rate",x="")
+```
+
+By slightly altering the code above, we can also plot the share of those employed in agriculture. We would expect to see it drop over time.
+
+```{r, fig.align="center"}
+unemp %>% 
+  ggplot(aes(year,emp_ag_tot/emp_tot)) + 
+  geom_line() + labs(y="Share Employed in Agriculture",x="")
+```
+
+
+
+
+
+
 We are studying the species and weight of animals caught in plots in our study
 area. The dataset is stored as a comma separated value (CSV) file.
 Each row holds information for a single animal, and the columns represent:
