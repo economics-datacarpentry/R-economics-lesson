@@ -143,7 +143,7 @@ vectors, they all contain the same type of data (e.g., characters, integers,
 factors). We can see this when inspecting the <b>str</b>ucture of a data frame
 with the function `str()`:
 
-```{r, purl=FALSE}
+```{r, purl=FALSE, results='show'}
 str(unemp)
 ```
 
