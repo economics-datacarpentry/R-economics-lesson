@@ -41,7 +41,7 @@ We are studying the labor force in the United States from 1941 to 2010 (raw data
 | unemp              | unemployment                                                |
 | unemp\_pct\_lf     | percent of unemployed in labor force                        |
 | not\_in\_lf        | not in labor force                                          |
-| footnotes          | citation of data source                                     |
+| footnotes          | notes on data                                               |
 | president          | president (majority of the year)                            |
 | party              | political party of the president                            |
 
