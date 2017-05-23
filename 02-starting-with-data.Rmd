@@ -87,19 +87,17 @@ short_names<-c('year',
                'unemp',
                'unemp_pct_lf',
                'not_in_lf',
-               'footnotes')
+               'footnotes',
+               'president',
+               'party')
                
 # create a codebook with the new names, old names, and the type of each column
-codebook<-data.frame(name=short_names,
-                     descripition=names(unemp),
-                     type=as.character(lapply(unemp,typeof)))
+codebook <- data.frame(name=short_names,
+                       descripition=names(unemp),
+                       type=as.character(lapply(unemp,typeof)))
                      
 # now rename the variables
-names(unemp)<-short_names
-
-# write both the codebook and rename data to disk as tab-delimited files
-write_tsv(codebook,"data/unemp_codebook.tsv")
-write_tsv(unemp,"data/unemp.tsv")
+names(unemp) <- short_names
 ```
 
 Now that it is saved, let's keep working with the data and see what we else can do. The `dplyr` package is an excellent way to manipulate data frame and summarize data.
@@ -319,7 +317,7 @@ unemp_head <- unemp[-c(7:nrow(unemp)),]
 ### Factors
 ```
 
-When we did `str(surveys)` we saw that several of the columns consist of
+When we did `str(unemp)` we saw that several of the columns consist of
 integers, however, the columns `genus`, `species`, `sex`, `plot_type`, ... are
 of a special class called a `factor`. Factors are very useful and are actually
 something that make R particularly well suited to working with data, so we're
@@ -407,7 +405,8 @@ the experiment:
 
 ```{r, purl=TRUE}
 ## bar plot of the number of females and males captured during the experiment:
-plot(surveys$sex)
+## TODO
+#plot(surveys$sex)
 ```
 
 In addition to males and females, there are about 1700 individuals for which the
@@ -417,7 +416,7 @@ label to something more meaningful. Before doing that, we're going to pull out
 the data on sex and work with that data, so we're not modifying the working copy
 of the data frame:
 
-```{r, results=TRUE, purl=FALSE}
+```{r, results=TRUE, purl=FALSE, eval=FALSE}
 sex <- surveys$sex
 head(sex)
 levels(sex)
