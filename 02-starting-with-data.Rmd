@@ -72,7 +72,7 @@ head(unemp)
 
 `readr` gives us feedback about how it parsed the csv. For example, it recognized that the `year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
 
-The variable names in the csv, though very descriptive, are not friendly to type. So we might like to rename the variables then save the data and a codebook to disk for later use.
+The variable names in the csv, though very descriptive, are not friendly to type. So we might like to rename the variables.
 
 ```{r}
 # new names for the columns
@@ -90,12 +90,7 @@ short_names <- c('year',
                  'footnotes',
                  'president',
                  'party')
-               
-# create a codebook with the new names, old names, and the type of each column
-codebook <- data.frame(name = short_names,
-                       descripition = names(unemp),
-                       type = as.character(lapply(unemp,typeof)))
-                     
+
 # now rename the variables
 names(unemp) <- short_names
 ```
