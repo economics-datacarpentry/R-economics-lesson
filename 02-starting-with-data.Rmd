@@ -4,8 +4,8 @@ author: Data Carpentry contributors
 minutes: 20
 ---
 
-```{r, echo=FALSE, purl=FALSE, message = FALSE}
-source("setup.R")
+```{r, echo=FALSE, purl=FALSE, message=FALSE}
+#source("setup.R")
 ```
 
 ------------
@@ -26,40 +26,39 @@ source("setup.R")
 ### Presentation of the labor force data
 ```
 
-We are studying the labor force in the United States from 1941 to 2010 (raw data originally from BLS.gov -- https://www.bls.gov/cps/aa2010/aat1.txt). The dataset is stored as a comma separated value (CSV) file. Each row holds labor force information for a single year, and the column represent:
+We are studying the labor force in the United States from 1941 to 2010.[^1] The dataset is stored as a comma separated value (CSV) file. Each row holds labor force information for a single year, and the column represent:
 
-| Column             | Description                                                 |
-|--------------------|-------------------------------------------------------------|
-| year               | year of observation                                         |
-| civ\_noninst\_pop  | civilian noninstitutional population                        |
-| civ\_lf\_tot       | total civilian labor force                                  |
-| pct\_pop           | percent of population                                       |
-| emp\_tot           | total employed                                              |
-| emp\_pct\_pop      | percent of employed population                              |
-| emp\_ag\_tot       | population employed in agriculture                          |
-| emp\_nonag\_tot    | population employed in non-agriculture                      |
-| unemp              | unemployment                                                |
-| unemp\_pct\_lf     | percent of unemployed in labor force                        |
-| not\_in\_lf        | not in labor force                                          |
-| footnotes          | notes on data                                               |
-| president          | president (majority of the year)                            |
-| party              | political party of the president                            |
+[^1]: Raw data from BLS.gov -- https://www.bls.gov/cps/aa2010/aat1.txt
+
+| Column                                  |
+|-----------------------------------------|
+| year of observation                     |
+| civilian noninstitutional population    |
+| total civilian labor force              |
+| percent of population                   | 
+| total employed                          |
+| percent of employed population          |
+| population employed in agriculture      |
+| population employed in non-agriculture  |
+| unemployment                            |
+| percent of unemployed in labor force    |
+| not in labor force                      |
+| notes on data                           |
+| president (majority of the year)        |
+| political party of the president        |
 
 To download the data into the `data/` subdirectory, run the following:
 
 ```{r, eval=FALSE, purl=TRUE}
-download.file("https://raw.githubusercontent.com/economics-datacarpentry/R-economics-lesson/gh-pages/data/aat1.csv",
-              "data/aat1.csv")
+download.file("https://raw.githubusercontent.com/economics-datacarpentry/R-economics-lesson/gh-pages/data/aat1.csv", "data/aat1.csv")
 ```
 
+We are going to use the R function `read.csv()` to read the CSV file that contains the labor force data to load into memory the content of the CSV file as an object of class `data.frame`.
 
-We are going to use the R function `read_csv()` from the `readr` package to read the CSV file that contains the labor force data to load into memory the content of the CSV file as an object of class `data.frame`.
-
-Load the data from the `\data` subdirectory:
+Load the data from the `data/` subdirectory:
 
 ```{r, eval=TRUE,  purl=FALSE}
-library(readr)
-unemp <- read_csv('data/aat1.csv')
+unemp <- read.csv('data/aat1.csv')
 ```
 
 This statement doesn't produce any output because, as you might recall, assignments don't display anything. If we want to check that our data has been loaded, we can print the variable's value: `unemp`.
@@ -70,11 +69,9 @@ Wow... that was a lot of output. At least it means the data loaded properly. Let
 head(unemp)
 ```
 
-`readr` gives us feedback about how it parsed the csv. For example, it recognized that the `year` column only contained integer values and decided to store that column as an integer vector. This saves space in memory and removes the need for us to do this manually. 
-
 The variable names in the csv, though very descriptive, are not friendly to type. So we might like to rename the variables.
 
-```{r}
+```{r, eval=TRUE, purl=FALSE}
 # new names for the columns
 short_names <- c('year',
                  'civ_noninst_pop',
