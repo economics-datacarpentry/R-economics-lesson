@@ -55,7 +55,7 @@ database using **`dplyr`**, using both the **`dplyr`**'s verb syntax and the SQL
 
 ### The portal_mammals database
 
-We will continue to explore the `surveys` data you are already familiar with
+We will continue to explore the `labor force` data you are already familiar with
 from previous lessons.
 
 The SQLite database is contained in a single file `portal_mammals.sqlite`
