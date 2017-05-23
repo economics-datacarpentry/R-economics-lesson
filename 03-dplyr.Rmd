@@ -70,16 +70,16 @@ To learn more about **`dplyr`** after the workshop, you may want to check out th
 We're going to learn some of the most common **`dplyr`** functions: `select()`,
 `filter()`, `mutate()`, `group_by()`, and `summarize()`. To select columns of a
 data frame, use `select()`. The first argument to this function is the data
-frame (`surveys`), and the subsequent arguments are the columns to keep.
+frame (`unemp`), and the subsequent arguments are the columns to keep.
 
 ```{r, results = 'hide', purl = FALSE}
-select(surveys, plot_id, species_id, weight)
+select(unemp, Year, Employed.Total, Unemployed..Number.)
 ```
 
 To choose rows based on a specific criteria, use `filter()`:
 
 ```{r, purl = FALSE}
-filter(surveys, year == 1995)
+filter(unemp, Year == 1995)
 ```
 
 ## Pipes
