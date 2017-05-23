@@ -26,7 +26,7 @@ source("setup.R")
 ### Presentation of the survey data
 ```
 
-We are studying the labor force in the United States from 1941 to 2010. The dataset is stored as a comma separated value (CSV) file. Each row holds labor force information for a single year, and the column represent:
+We are studying the labor force in the United States from 1941 to 2010 (raw data from BLS.gov -- https://www.bls.gov/cps/aa2010/aat1.txt). The dataset is stored as a comma separated value (CSV) file. Each row holds labor force information for a single year, and the column represent:
 
 | Column             | Description                                                 |
 |--------------------|-------------------------------------------------------------|
